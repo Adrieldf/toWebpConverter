@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:towebpconverter/browsegif.dart';
+import 'package:towebpconverter/constants/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,9 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'toWebpConverter',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: theme,
       home: MyHomePage(title: 'Gif to Webp Converter'),
     );
   }
@@ -38,14 +37,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("GIF"),
               autofocus: false,
               clipBehavior: Clip.none,
+              style: new ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return Theme.of(context)
+                        .primaryColor; // Use the component's default.
+                  },
+                ),
+              ),
             )
           ],
         ),

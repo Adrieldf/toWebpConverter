@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
+import 'package:towebpconverter/constants/constants.dart';
 
 class BrowseGIF extends StatefulWidget {
   BrowseGIF({Key key}) : super(key: key);
@@ -25,8 +26,11 @@ class _BrowseGIFState extends State<BrowseGIF> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueAccent,
-        child: Icon(Icons.search),
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(
+          Icons.search,
+          color: iconColor,
+        ),
         onPressed: () async {
           // request your Giphy API key at https://developers.giphy.com/
           final gif = await GiphyPicker.pickGif(
@@ -37,7 +41,7 @@ class _BrowseGIFState extends State<BrowseGIF> {
             decorator: GiphyDecorator(
               showAppBar: false,
               searchElevation: 4,
-              giphyTheme: ThemeData.dark().copyWith(
+              giphyTheme: Theme.of(context).copyWith(
                 inputDecorationTheme: InputDecorationTheme(
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
