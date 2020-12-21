@@ -12,6 +12,10 @@ class BrowseGIF extends StatefulWidget {
 class _BrowseGIFState extends State<BrowseGIF> {
   GiphyGif _gif;
 
+  void test(){
+    _gif.
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
