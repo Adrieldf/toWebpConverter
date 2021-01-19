@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(builder: (context) => BrowseGIF()),
                 );
               },
-              child: Text("GIF"),
+              child: Text("GIPHY GIF"),
               autofocus: false,
               clipBehavior: Clip.none,
               style: new ButtonStyle(
