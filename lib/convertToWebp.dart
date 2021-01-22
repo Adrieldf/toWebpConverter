@@ -39,6 +39,7 @@ class _ConvertToWebpState extends State<ConvertToWebp> {
   bool _downloadVisible = true;
   ReceivePort _port = ReceivePort();
   File _convertedFile;
+  int _fileSize = 0;
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -155,6 +156,13 @@ class _ConvertToWebpState extends State<ConvertToWebp> {
             });
   }
 
+  void convertFileAgain() {
+    this.convertFile();
+    setState(() {
+      this._fileSize = new File(this._completeFilePath).lengthSync();
+    });
+  }
+
   Future<File> testCompressAndGetFile(File file, String targetPath) async {
     var result = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,
@@ -252,8 +260,11 @@ class _ConvertToWebpState extends State<ConvertToWebp> {
                       ],
                     ),
                   ),
+                  Text(this._fileSize.toString() + "kb"),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      this.convertFileAgain();
+                    },
                     child: Text("Convert again"),
                     autofocus: false,
                     clipBehavior: Clip.none,

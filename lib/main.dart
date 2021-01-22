@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:towebpconverter/browsegif.dart';
 import 'package:towebpconverter/constants/theme.dart';
+import 'package:towebpconverter/importGif.dart';
 
 void main() {
   runApp(MyApp());
@@ -55,6 +56,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: Text("GIPHY GIF"),
+              autofocus: false,
+              clipBehavior: Clip.none,
+              style: new ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return Theme.of(context)
+                        .primaryColor; // Use the component's default.
+                  },
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ImportGif()),
+                );
+              },
+              child: Text("Import GIF"),
               autofocus: false,
               clipBehavior: Clip.none,
               style: new ButtonStyle(
