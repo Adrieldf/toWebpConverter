@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -35,11 +36,12 @@ class _ConvertToWebpState extends State<ConvertToWebp> {
   double _quality = 50;
   String _completeFilePath = "";
   bool _downloaderInitialized = false;
-  List<Widget> iterations = List<Widget>();
+  List<Widget> iterations = List.empty();
   bool _downloadVisible = true;
   ReceivePort _port = ReceivePort();
   File _convertedFile;
   int _fileSize = 0;
+  final FlutterFFmpeg _flutterFFmpeg = new FlutterFFmpeg();
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -163,19 +165,25 @@ class _ConvertToWebpState extends State<ConvertToWebp> {
     });
   }
 
+//https://pub.dev/packages/flutter_ffmpeg
+//https://superuser.com/questions/1444932/convert-animated-gif-to-animated-webp-using-ffmpeg
   Future<File> testCompressAndGetFile(File file, String targetPath) async {
-    var result = await FlutterImageCompress.compressAndGetFile(
+    /*  var result = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,
       targetPath,
       quality: _quality.toInt(),
       rotate: 180,
       format: CompressFormat.webp,
     );
-
+*/
+    _flutterFFmpeg
+        .execute("-i " + file.path + " " + targetPath)
+        .then((rc) => {print("FFmpeg process exited with rc $rc")});
+    /*
     print(file.lengthSync());
     print(result.lengthSync());
-
-    return result;
+*/
+    return new File(targetPath);
   }
 
   @override
